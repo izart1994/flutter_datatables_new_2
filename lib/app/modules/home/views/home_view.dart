@@ -132,8 +132,6 @@ class HomeView extends GetView<HomeController> {
                                       Container().marginSymmetric(horizontal: 1.w),
                                       GestureDetector(
                                         onTap: () {
-                                          print(controller.currentPage.value + 1);
-                                          print(controller.lastPageNum);
                                           if (controller.currentPage.value + 1 <= controller.lastPageNum) {
                                             controller.buttonPressed.value = 'forward';
                                             controller.fetchData(controller.currentPage.value + 1);

@@ -78,9 +78,19 @@ class HomeController extends GetxController {
   List<FakeTitleBodyData> get rangeRows {
     if (searchControllerString.value != '') {
       if (currentPage.value == 1) {
-        return filteredFakeDataList.sublist(0, rowsPerPageData.value == 0 ? rowsPerPage.value : rowsPerPageData.value).where((e) => e.title.contains(searchControllerString.value)).toList();
+        List<FakeTitleBodyData> listing = filteredFakeDataList.where((e) => e.title.contains(searchControllerString.value)).toList();
+        if (listing.isEmpty) {
+          return listing;
+        } else {
+          return listing.sublist(0, rowsPerPageData.value == 0 ? rowsPerPage.value : rowsPerPageData.value);
+        }
       } else {
-        return filteredFakeDataList.sublist(rowsPerPageData.value, rowsPerPage.value + rowsPerPageData.value).where((e) => e.title.contains(searchControllerString.value)).toList();
+        List<FakeTitleBodyData> listing = filteredFakeDataList.where((e) => e.title.contains(searchControllerString.value)).toList();
+        if (listing.isEmpty) {
+          return listing;
+        } else {
+          return listing.sublist(rowsPerPageData.value, rowsPerPage.value + rowsPerPageData.value);
+        }
       }
     } else {
       if (currentPage.value == 1) {
@@ -93,14 +103,9 @@ class HomeController extends GetxController {
         if (lastPageNum != currentPage.value) {
           return filteredFakeDataList.sublist(rowsPerPageData.value, rowsPerPage.value + rowsPerPageData.value);
         } else {
+          int remainder = fakeDataList.length % rowsPerPage.value;
           if (rowsPerPage.value != 10) {
-            RxInt remainingNum = 0.obs;
-            if (rowsPerPage.value % 2 == 0) {
-              remainingNum.value = 4;
-            } else {
-              remainingNum.value = rowsPerPage.value == 9 ? 1 : 2;
-            }
-            return filteredFakeDataList.sublist(rowsPerPageData.value, rowsPerPageData.value + remainingNum.value);
+            return filteredFakeDataList.sublist(rowsPerPageData.value, rowsPerPageData.value + remainder);
           } else {
             return filteredFakeDataList.sublist(rowsPerPageData.value, rowsPerPage.value + rowsPerPageData.value);
           }
