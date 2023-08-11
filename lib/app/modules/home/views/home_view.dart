@@ -32,7 +32,7 @@ class HomeView extends GetView<HomeController> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Server Side ${controller.lastPageNum}',
+                      'Server Side',
                       style: TextStyle(fontSize: 4.sp),
                     ),
                     const Divider().marginOnly(bottom: 5.h),
